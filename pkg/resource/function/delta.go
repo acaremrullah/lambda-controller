@@ -50,6 +50,35 @@ func newResourceDelta(
 			delta.Add("Spec.Architectures", a.ko.Spec.Architectures, b.ko.Spec.Architectures)
 		}
 	}
+	if ackcompare.HasNilDifference(a.ko.Spec.CapacityProviderConfig, b.ko.Spec.CapacityProviderConfig) {
+		delta.Add("Spec.CapacityProviderConfig", a.ko.Spec.CapacityProviderConfig, b.ko.Spec.CapacityProviderConfig)
+	} else if a.ko.Spec.CapacityProviderConfig != nil && b.ko.Spec.CapacityProviderConfig != nil {
+		if ackcompare.HasNilDifference(a.ko.Spec.CapacityProviderConfig.LambdaManagedInstancesCapacityProviderConfig, b.ko.Spec.CapacityProviderConfig.LambdaManagedInstancesCapacityProviderConfig) {
+			delta.Add("Spec.CapacityProviderConfig.LambdaManagedInstancesCapacityProviderConfig", a.ko.Spec.CapacityProviderConfig.LambdaManagedInstancesCapacityProviderConfig, b.ko.Spec.CapacityProviderConfig.LambdaManagedInstancesCapacityProviderConfig)
+		} else if a.ko.Spec.CapacityProviderConfig.LambdaManagedInstancesCapacityProviderConfig != nil && b.ko.Spec.CapacityProviderConfig.LambdaManagedInstancesCapacityProviderConfig != nil {
+			if ackcompare.HasNilDifference(a.ko.Spec.CapacityProviderConfig.LambdaManagedInstancesCapacityProviderConfig.CapacityProviderARN, b.ko.Spec.CapacityProviderConfig.LambdaManagedInstancesCapacityProviderConfig.CapacityProviderARN) {
+				delta.Add("Spec.CapacityProviderConfig.LambdaManagedInstancesCapacityProviderConfig.CapacityProviderARN", a.ko.Spec.CapacityProviderConfig.LambdaManagedInstancesCapacityProviderConfig.CapacityProviderARN, b.ko.Spec.CapacityProviderConfig.LambdaManagedInstancesCapacityProviderConfig.CapacityProviderARN)
+			} else if a.ko.Spec.CapacityProviderConfig.LambdaManagedInstancesCapacityProviderConfig.CapacityProviderARN != nil && b.ko.Spec.CapacityProviderConfig.LambdaManagedInstancesCapacityProviderConfig.CapacityProviderARN != nil {
+				if *a.ko.Spec.CapacityProviderConfig.LambdaManagedInstancesCapacityProviderConfig.CapacityProviderARN != *b.ko.Spec.CapacityProviderConfig.LambdaManagedInstancesCapacityProviderConfig.CapacityProviderARN {
+					delta.Add("Spec.CapacityProviderConfig.LambdaManagedInstancesCapacityProviderConfig.CapacityProviderARN", a.ko.Spec.CapacityProviderConfig.LambdaManagedInstancesCapacityProviderConfig.CapacityProviderARN, b.ko.Spec.CapacityProviderConfig.LambdaManagedInstancesCapacityProviderConfig.CapacityProviderARN)
+				}
+			}
+			if ackcompare.HasNilDifference(a.ko.Spec.CapacityProviderConfig.LambdaManagedInstancesCapacityProviderConfig.ExecutionEnvironmentMemoryGiBPerVCPU, b.ko.Spec.CapacityProviderConfig.LambdaManagedInstancesCapacityProviderConfig.ExecutionEnvironmentMemoryGiBPerVCPU) {
+				delta.Add("Spec.CapacityProviderConfig.LambdaManagedInstancesCapacityProviderConfig.ExecutionEnvironmentMemoryGiBPerVCPU", a.ko.Spec.CapacityProviderConfig.LambdaManagedInstancesCapacityProviderConfig.ExecutionEnvironmentMemoryGiBPerVCPU, b.ko.Spec.CapacityProviderConfig.LambdaManagedInstancesCapacityProviderConfig.ExecutionEnvironmentMemoryGiBPerVCPU)
+			} else if a.ko.Spec.CapacityProviderConfig.LambdaManagedInstancesCapacityProviderConfig.ExecutionEnvironmentMemoryGiBPerVCPU != nil && b.ko.Spec.CapacityProviderConfig.LambdaManagedInstancesCapacityProviderConfig.ExecutionEnvironmentMemoryGiBPerVCPU != nil {
+				if *a.ko.Spec.CapacityProviderConfig.LambdaManagedInstancesCapacityProviderConfig.ExecutionEnvironmentMemoryGiBPerVCPU != *b.ko.Spec.CapacityProviderConfig.LambdaManagedInstancesCapacityProviderConfig.ExecutionEnvironmentMemoryGiBPerVCPU {
+					delta.Add("Spec.CapacityProviderConfig.LambdaManagedInstancesCapacityProviderConfig.ExecutionEnvironmentMemoryGiBPerVCPU", a.ko.Spec.CapacityProviderConfig.LambdaManagedInstancesCapacityProviderConfig.ExecutionEnvironmentMemoryGiBPerVCPU, b.ko.Spec.CapacityProviderConfig.LambdaManagedInstancesCapacityProviderConfig.ExecutionEnvironmentMemoryGiBPerVCPU)
+				}
+			}
+			if ackcompare.HasNilDifference(a.ko.Spec.CapacityProviderConfig.LambdaManagedInstancesCapacityProviderConfig.PerExecutionEnvironmentMaxConcurrency, b.ko.Spec.CapacityProviderConfig.LambdaManagedInstancesCapacityProviderConfig.PerExecutionEnvironmentMaxConcurrency) {
+				delta.Add("Spec.CapacityProviderConfig.LambdaManagedInstancesCapacityProviderConfig.PerExecutionEnvironmentMaxConcurrency", a.ko.Spec.CapacityProviderConfig.LambdaManagedInstancesCapacityProviderConfig.PerExecutionEnvironmentMaxConcurrency, b.ko.Spec.CapacityProviderConfig.LambdaManagedInstancesCapacityProviderConfig.PerExecutionEnvironmentMaxConcurrency)
+			} else if a.ko.Spec.CapacityProviderConfig.LambdaManagedInstancesCapacityProviderConfig.PerExecutionEnvironmentMaxConcurrency != nil && b.ko.Spec.CapacityProviderConfig.LambdaManagedInstancesCapacityProviderConfig.PerExecutionEnvironmentMaxConcurrency != nil {
+				if *a.ko.Spec.CapacityProviderConfig.LambdaManagedInstancesCapacityProviderConfig.PerExecutionEnvironmentMaxConcurrency != *b.ko.Spec.CapacityProviderConfig.LambdaManagedInstancesCapacityProviderConfig.PerExecutionEnvironmentMaxConcurrency {
+					delta.Add("Spec.CapacityProviderConfig.LambdaManagedInstancesCapacityProviderConfig.PerExecutionEnvironmentMaxConcurrency", a.ko.Spec.CapacityProviderConfig.LambdaManagedInstancesCapacityProviderConfig.PerExecutionEnvironmentMaxConcurrency, b.ko.Spec.CapacityProviderConfig.LambdaManagedInstancesCapacityProviderConfig.PerExecutionEnvironmentMaxConcurrency)
+				}
+			}
+		}
+	}
 	if ackcompare.HasNilDifference(a.ko.Spec.Code, b.ko.Spec.Code) {
 		delta.Add("Spec.Code", a.ko.Spec.Code, b.ko.Spec.Code)
 	} else if a.ko.Spec.Code != nil && b.ko.Spec.Code != nil {
@@ -345,6 +374,17 @@ func newResourceDelta(
 	latestACKTags, _ := convertToOrderedACKTags(b.ko.Spec.Tags)
 	if !ackcompare.MapStringStringEqual(desiredACKTags, latestACKTags) {
 		delta.Add("Spec.Tags", a.ko.Spec.Tags, b.ko.Spec.Tags)
+	}
+	if ackcompare.HasNilDifference(a.ko.Spec.TenancyConfig, b.ko.Spec.TenancyConfig) {
+		delta.Add("Spec.TenancyConfig", a.ko.Spec.TenancyConfig, b.ko.Spec.TenancyConfig)
+	} else if a.ko.Spec.TenancyConfig != nil && b.ko.Spec.TenancyConfig != nil {
+		if ackcompare.HasNilDifference(a.ko.Spec.TenancyConfig.TenantIsolationMode, b.ko.Spec.TenancyConfig.TenantIsolationMode) {
+			delta.Add("Spec.TenancyConfig.TenantIsolationMode", a.ko.Spec.TenancyConfig.TenantIsolationMode, b.ko.Spec.TenancyConfig.TenantIsolationMode)
+		} else if a.ko.Spec.TenancyConfig.TenantIsolationMode != nil && b.ko.Spec.TenancyConfig.TenantIsolationMode != nil {
+			if *a.ko.Spec.TenancyConfig.TenantIsolationMode != *b.ko.Spec.TenancyConfig.TenantIsolationMode {
+				delta.Add("Spec.TenancyConfig.TenantIsolationMode", a.ko.Spec.TenancyConfig.TenantIsolationMode, b.ko.Spec.TenancyConfig.TenantIsolationMode)
+			}
+		}
 	}
 	if ackcompare.HasNilDifference(a.ko.Spec.Timeout, b.ko.Spec.Timeout) {
 		delta.Add("Spec.Timeout", a.ko.Spec.Timeout, b.ko.Spec.Timeout)

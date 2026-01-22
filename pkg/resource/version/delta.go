@@ -149,6 +149,13 @@ func newResourceDelta(
 			}
 		}
 	}
+	if ackcompare.HasNilDifference(a.ko.Spec.PublishTo, b.ko.Spec.PublishTo) {
+		delta.Add("Spec.PublishTo", a.ko.Spec.PublishTo, b.ko.Spec.PublishTo)
+	} else if a.ko.Spec.PublishTo != nil && b.ko.Spec.PublishTo != nil {
+		if *a.ko.Spec.PublishTo != *b.ko.Spec.PublishTo {
+			delta.Add("Spec.PublishTo", a.ko.Spec.PublishTo, b.ko.Spec.PublishTo)
+		}
+	}
 	if ackcompare.HasNilDifference(a.ko.Spec.RevisionID, b.ko.Spec.RevisionID) {
 		delta.Add("Spec.RevisionID", a.ko.Spec.RevisionID, b.ko.Spec.RevisionID)
 	} else if a.ko.Spec.RevisionID != nil && b.ko.Spec.RevisionID != nil {

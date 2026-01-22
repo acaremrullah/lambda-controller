@@ -47,10 +47,12 @@ type VersionSpec struct {
 	// The length constraint applies only to the full ARN. If you specify only the
 	// function name, it is limited to 64 characters in length.
 	//
-	// Regex Pattern: `^(arn:(aws[a-zA-Z-]*)?:lambda:)?([a-z]{2}(-gov)?-[a-z]+-\d{1}:)?(\d{12}:)?(function:)?([a-zA-Z0-9-_]+)(:(\$LATEST|[a-zA-Z0-9-_]+))?$`
+	// Regex Pattern: `^(arn:(aws[a-zA-Z-]*)?:lambda:)?([a-z]{2}((-gov)|(-iso([a-z]?)))?-[a-z]+-\d{1}:)?(\d{12}:)?(function:)?([a-zA-Z0-9-_]+)(:(\$LATEST|[a-zA-Z0-9-_]+))?$`
 	FunctionName                 *string                                  `json:"functionName,omitempty"`
 	FunctionRef                  *ackv1alpha1.AWSResourceReferenceWrapper `json:"functionRef,omitempty"`
 	ProvisionedConcurrencyConfig *PutProvisionedConcurrencyConfigInput    `json:"provisionedConcurrencyConfig,omitempty"`
+	// Specifies where to publish the function version or configuration.
+	PublishTo *string `json:"publishTo,omitempty"`
 	// Only update the function if the revision ID matches the ID that's specified.
 	// Use this option to avoid publishing a version if the function configuration
 	// has changed since you last updated it.
@@ -75,12 +77,20 @@ type VersionStatus struct {
 	// value is x86_64.
 	// +kubebuilder:validation:Optional
 	Architectures []*string `json:"architectures,omitempty"`
+	// Configuration for the capacity provider that manages compute resources for
+	// Lambda functions.
+	// +kubebuilder:validation:Optional
+	CapacityProviderConfig *CapacityProviderConfig `json:"capacityProviderConfig,omitempty"`
 	// The size of the function's deployment package, in bytes.
 	// +kubebuilder:validation:Optional
 	CodeSize *int64 `json:"codeSize,omitempty"`
 	// The function's dead letter queue.
 	// +kubebuilder:validation:Optional
 	DeadLetterConfig *DeadLetterConfig `json:"deadLetterConfig,omitempty"`
+	// The function's durable execution configuration settings, if the function
+	// is configured for durability.
+	// +kubebuilder:validation:Optional
+	DurableConfig *DurableConfig `json:"durableConfig,omitempty"`
 	// The function's environment variables (https://docs.aws.amazon.com/lambda/latest/dg/configuration-envvars.html).
 	// Omitted from CloudTrail logs.
 	// +kubebuilder:validation:Optional
@@ -95,7 +105,7 @@ type VersionStatus struct {
 	FileSystemConfigs []*FileSystemConfig `json:"fileSystemConfigs,omitempty"`
 	// The function's Amazon Resource Name (ARN).
 	//
-	// Regex Pattern: `^arn:(aws[a-zA-Z-]*)?:lambda:[a-z]{2}(-gov)?-[a-z]+-\d{1}:\d{12}:function:[a-zA-Z0-9-_\.]+(:(\$LATEST|[a-zA-Z0-9-_]+))?$`
+	// Regex Pattern: `^arn:(aws[a-zA-Z-]*)?:lambda:[a-z]{2}((-gov)|(-iso([a-z]?)))?-[a-z]+-\d{1}:\d{12}:function:[a-zA-Z0-9-_\.]+(:(\$LATEST(\.PUBLISHED)?|[a-zA-Z0-9-_]+))?$`
 	// +kubebuilder:validation:Optional
 	FunctionARN *string `json:"functionARN,omitempty"`
 	// The function that Lambda calls to begin running your function.
@@ -149,7 +159,7 @@ type VersionStatus struct {
 	Layers []*Layer `json:"layers,omitempty"`
 	// For Lambda@Edge functions, the ARN of the main function.
 	//
-	// Regex Pattern: `^arn:(aws[a-zA-Z-]*)?:lambda:[a-z]{2}(-gov)?-[a-z]+-\d{1}:\d{12}:function:[a-zA-Z0-9-_]+(:(\$LATEST|[a-zA-Z0-9-_]+))?$`
+	// Regex Pattern: `^arn:(aws[a-zA-Z-]*)?:lambda:[a-z]{2}((-gov)|(-iso([a-z]?)))?-[a-z]+-\d{1}:\d{12}:function:[a-zA-Z0-9-_]+(:(\$LATEST|[a-zA-Z0-9-_]+))?$`
 	// +kubebuilder:validation:Optional
 	MasterARN *string `json:"masterARN,omitempty"`
 	// The amount of memory available to the function at runtime.
@@ -207,6 +217,11 @@ type VersionStatus struct {
 	// you can't invoke or modify the function.
 	// +kubebuilder:validation:Optional
 	StateReasonCode *string `json:"stateReasonCode,omitempty"`
+	// The function's tenant isolation configuration settings. Determines whether
+	// the Lambda function runs on a shared or dedicated infrastructure per unique
+	// tenant.
+	// +kubebuilder:validation:Optional
+	TenancyConfig *TenancyConfig `json:"tenancyConfig,omitempty"`
 	// The amount of time in seconds that Lambda allows a function to run before
 	// stopping it.
 	// +kubebuilder:validation:Optional

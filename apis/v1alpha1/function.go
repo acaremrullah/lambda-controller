@@ -27,6 +27,9 @@ type FunctionSpec struct {
 	// array with one of the valid values (arm64 or x86_64). The default value is
 	// x86_64.
 	Architectures []*string `json:"architectures,omitempty"`
+	// Configuration for the capacity provider that manages compute resources for
+	// Lambda functions.
+	CapacityProviderConfig *CapacityProviderConfig `json:"capacityProviderConfig,omitempty"`
 	// The code for the function.
 	// +kubebuilder:validation:Required
 	Code *FunctionCode `json:"code"`
@@ -125,7 +128,7 @@ type FunctionSpec struct {
 	// The length constraint applies only to the full ARN. If you specify only the
 	// function name, it is limited to 64 characters in length.
 	//
-	// Regex Pattern: `^(arn:(aws[a-zA-Z-]*)?:lambda:)?([a-z]{2}(-gov)?-[a-z]+-\d{1}:)?(\d{12}:)?(function:)?([a-zA-Z0-9-_]+)(:(\$LATEST|[a-zA-Z0-9-_]+))?$`
+	// Regex Pattern: `^(arn:(aws[a-zA-Z-]*)?:lambda:)?([a-z]{2}((-gov)|(-iso([a-z]?)))?-[a-z]+-\d{1}:)?(\d{12}:)?(function:)?([a-zA-Z0-9-_]+)(:(\$LATEST|[a-zA-Z0-9-_]+))?$`
 	// +kubebuilder:validation:Required
 	Name *string `json:"name"`
 	// The type of deployment package. Set to Image for container image and set
@@ -157,7 +160,10 @@ type FunctionSpec struct {
 	// A list of tags (https://docs.aws.amazon.com/lambda/latest/dg/tagging.html)
 	// to apply to the function.
 	Tags map[string]*string `json:"tags,omitempty"`
-	// The function's tenant isolation configuration.
+	// Configuration for multi-tenant applications that use Lambda functions. Defines
+	// tenant isolation settings and resource allocations. Required for functions
+	// supporting multiple tenants.
+	// +kubebuilder:validation:XValidation:rule="self == oldSelf",message="Value is immutable once set"
 	TenancyConfig *TenancyConfig `json:"tenancyConfig,omitempty"`
 	// The amount of time (in seconds) that Lambda allows a function to run before
 	// stopping it. The default is 3 seconds. The maximum allowed value is 900 seconds.
@@ -193,6 +199,10 @@ type FunctionStatus struct {
 	// The size of the function's deployment package, in bytes.
 	// +kubebuilder:validation:Optional
 	CodeSize *int64 `json:"codeSize,omitempty"`
+	// The function's durable execution configuration settings, if the function
+	// is configured for durability.
+	// +kubebuilder:validation:Optional
+	DurableConfig *DurableConfig `json:"durableConfig,omitempty"`
 	// The function's image configuration values.
 	// +kubebuilder:validation:Optional
 	ImageConfigResponse *ImageConfigResponse `json:"imageConfigResponse,omitempty"`
@@ -215,7 +225,7 @@ type FunctionStatus struct {
 	LayerStatuses []*Layer `json:"layerStatuses,omitempty"`
 	// For Lambda@Edge functions, the ARN of the main function.
 	//
-	// Regex Pattern: `^arn:(aws[a-zA-Z-]*)?:lambda:[a-z]{2}(-gov)?-[a-z]+-\d{1}:\d{12}:function:[a-zA-Z0-9-_]+(:(\$LATEST|[a-zA-Z0-9-_]+))?$`
+	// Regex Pattern: `^arn:(aws[a-zA-Z-]*)?:lambda:[a-z]{2}((-gov)|(-iso([a-z]?)))?-[a-z]+-\d{1}:\d{12}:function:[a-zA-Z0-9-_]+(:(\$LATEST|[a-zA-Z0-9-_]+))?$`
 	// +kubebuilder:validation:Optional
 	MasterARN *string `json:"masterARN,omitempty"`
 	// The latest updated revision of the function or alias.

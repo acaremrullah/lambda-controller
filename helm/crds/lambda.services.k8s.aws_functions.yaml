@@ -3,7 +3,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.20.0
+    controller-gen.kubebuilder.io/version: v0.19.0
   name: functions.lambda.services.k8s.aws
 spec:
   group: lambda.services.k8s.aws
@@ -47,6 +47,24 @@ spec:
                 items:
                   type: string
                 type: array
+              capacityProviderConfig:
+                description: |-
+                  Configuration for the capacity provider that manages compute resources for
+                  Lambda functions.
+                properties:
+                  lambdaManagedInstancesCapacityProviderConfig:
+                    description: Configuration for Lambda-managed instances used by
+                      the capacity provider.
+                    properties:
+                      capacityProviderARN:
+                        type: string
+                      executionEnvironmentMemoryGiBPerVCPU:
+                        type: number
+                      perExecutionEnvironmentMaxConcurrency:
+                        format: int64
+                        type: integer
+                    type: object
+                type: object
               code:
                 description: The code for the function.
                 properties:
@@ -298,7 +316,7 @@ spec:
                   The length constraint applies only to the full ARN. If you specify only the
                   function name, it is limited to 64 characters in length.
 
-                  Regex Pattern: `^(arn:(aws[a-zA-Z-]*)?:lambda:)?([a-z]{2}(-gov)?-[a-z]+-\d{1}:)?(\d{12}:)?(function:)?([a-zA-Z0-9-_]+)(:(\$LATEST|[a-zA-Z0-9-_]+))?$`
+                  Regex Pattern: `^(arn:(aws[a-zA-Z-]*)?:lambda:)?([a-z]{2}((-gov)|(-iso([a-z]?)))?-[a-z]+-\d{1}:)?(\d{12}:)?(function:)?([a-zA-Z0-9-_]+)(:(\$LATEST|[a-zA-Z0-9-_]+))?$`
                 type: string
               packageType:
                 description: |-
@@ -366,11 +384,17 @@ spec:
                   to apply to the function.
                 type: object
               tenancyConfig:
-                description: The function's tenant isolation configuration.
+                description: |-
+                  Configuration for multi-tenant applications that use Lambda functions. Defines
+                  tenant isolation settings and resource allocations. Required for functions
+                  supporting multiple tenants.
                 properties:
                   tenantIsolationMode:
                     type: string
                 type: object
+                x-kubernetes-validations:
+                - message: Value is immutable once set
+                  rule: self == oldSelf
               timeout:
                 description: |-
                   The amount of time (in seconds) that Lambda allows a function to run before
@@ -521,6 +545,18 @@ spec:
                   - type
                   type: object
                 type: array
+              durableConfig:
+                description: |-
+                  The function's durable execution configuration settings, if the function
+                  is configured for durability.
+                properties:
+                  executionTimeout:
+                    format: int64
+                    type: integer
+                  retentionPeriodInDays:
+                    format: int64
+                    type: integer
+                type: object
               imageConfigResponse:
                 description: The function's image configuration values.
                 properties:
@@ -587,7 +623,7 @@ spec:
                 description: |-
                   For Lambda@Edge functions, the ARN of the main function.
 
-                  Regex Pattern: `^arn:(aws[a-zA-Z-]*)?:lambda:[a-z]{2}(-gov)?-[a-z]+-\d{1}:\d{12}:function:[a-zA-Z0-9-_]+(:(\$LATEST|[a-zA-Z0-9-_]+))?$`
+                  Regex Pattern: `^arn:(aws[a-zA-Z-]*)?:lambda:[a-z]{2}((-gov)|(-iso([a-z]?)))?-[a-z]+-\d{1}:\d{12}:function:[a-zA-Z0-9-_]+(:(\$LATEST|[a-zA-Z0-9-_]+))?$`
                 type: string
               revisionID:
                 description: The latest updated revision of the function or alias.
