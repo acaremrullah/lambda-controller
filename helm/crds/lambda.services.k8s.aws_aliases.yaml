@@ -156,8 +156,6 @@ spec:
                       type: string
                     functionURLAuthType:
                       type: string
-                    invokedViaFunctionURL:
-                      type: boolean
                     principal:
                       type: string
                     principalOrgID:

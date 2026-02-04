@@ -47,24 +47,6 @@ spec:
                 items:
                   type: string
                 type: array
-              capacityProviderConfig:
-                description: |-
-                  Configuration for the capacity provider that manages compute resources for
-                  Lambda functions.
-                properties:
-                  lambdaManagedInstancesCapacityProviderConfig:
-                    description: Configuration for Lambda-managed instances used by
-                      the capacity provider.
-                    properties:
-                      capacityProviderARN:
-                        type: string
-                      executionEnvironmentMemoryGiBPerVCPU:
-                        type: number
-                      perExecutionEnvironmentMaxConcurrency:
-                        format: int64
-                        type: integer
-                    type: object
-                type: object
               code:
                 description: The code for the function.
                 properties:
@@ -545,18 +527,6 @@ spec:
                   - type
                   type: object
                 type: array
-              durableConfig:
-                description: |-
-                  The function's durable execution configuration settings, if the function
-                  is configured for durability.
-                properties:
-                  executionTimeout:
-                    format: int64
-                    type: integer
-                  retentionPeriodInDays:
-                    format: int64
-                    type: integer
-                type: object
               imageConfigResponse:
                 description: The function's image configuration values.
                 properties:

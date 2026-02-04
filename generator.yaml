@@ -1,17 +1,6 @@
 ignore:
   resource_names:
-  - CreateCapacityProvider
   - CapacityProvider
-  - CapacityProviderScalingMode
-  - CapacityProviderState
-  - CapacityProviderPredefinedMetricType
-  - CapacityProviderScalingMode
-  - CapacityProviderConfig
-  - CapacityProviderPermissionsConfig
-  - ChainedInvokeOptions
-  - ChainedInvokeStartedDetails
-  - CheckpointUpdatedExecutionState
-  - DurableConfig
     # Function
     # Alias
     # CodeSigningConfig
@@ -41,14 +30,18 @@ ignore:
   - VpcConfig.Ipv6AllowedForDualStack
   - AddPermissionInput.FunctionName # We grab this from the Alias resource
   - AddPermissionInput.Qualifier # We grab this from the Alias resource   
-  - AddPermissionInput.InvokedViaFunctionURL
+  - PublishVersionInput.PublishTo
+  - PublishVersionOutput.PublishTo
+  - PublishVersionOutput.CapacityProviderConfig
+  - PublishVersionOutput.DurableConfig
+  - AddPermissionInput.InvokedViaFunctionUrl
   - CreateFunctionInput.PublishTo
-  - CreateFunctionInput.capacityProviderConfig
-  - CreateFunctionOutput.ConfigSha256
-  - GetFunctionConfigurationOutput.ConfigSha256
-  - PublishVersionOutput.ConfigSha256
+  - CreateFunctionInput.CapacityProviderConfig
+  - CreateFunctionOutput.CapacityProviderConfig
   - CreateFunctionInput.DurableConfig
-  - AccountLimit.ConcurrentExecution
+  - CreateFunctionOutput.DurableConfig
+  - CreateFunctionOutput.ConfigSha256
+  - PublishVersionOutput.ConfigSha256
 operations:
   GetFunction:
     output_wrapper_field_path: Configuration

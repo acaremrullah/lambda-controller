@@ -44,16 +44,15 @@ type AccountUsage struct {
 }
 
 type AddPermissionInput struct {
-	Action                *string `json:"action,omitempty"`
-	EventSourceToken      *string `json:"eventSourceToken,omitempty"`
-	FunctionURLAuthType   *string `json:"functionURLAuthType,omitempty"`
-	InvokedViaFunctionURL *bool   `json:"invokedViaFunctionURL,omitempty"`
-	Principal             *string `json:"principal,omitempty"`
-	PrincipalOrgID        *string `json:"principalOrgID,omitempty"`
-	RevisionID            *string `json:"revisionID,omitempty"`
-	SourceAccount         *string `json:"sourceAccount,omitempty"`
-	SourceARN             *string `json:"sourceARN,omitempty"`
-	StatementID           *string `json:"statementID,omitempty"`
+	Action              *string `json:"action,omitempty"`
+	EventSourceToken    *string `json:"eventSourceToken,omitempty"`
+	FunctionURLAuthType *string `json:"functionURLAuthType,omitempty"`
+	Principal           *string `json:"principal,omitempty"`
+	PrincipalOrgID      *string `json:"principalOrgID,omitempty"`
+	RevisionID          *string `json:"revisionID,omitempty"`
+	SourceAccount       *string `json:"sourceAccount,omitempty"`
+	SourceARN           *string `json:"sourceARN,omitempty"`
+	StatementID         *string `json:"statementID,omitempty"`
 }
 
 // Provides configuration information about a Lambda function alias (https://docs.aws.amazon.com/lambda/latest/dg/configuration-aliases.html).

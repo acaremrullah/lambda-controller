@@ -135,9 +135,6 @@ spec:
                   qualifier:
                     type: string
                 type: object
-              publishTo:
-                description: Specifies where to publish the function version or configuration.
-                type: string
               revisionID:
                 description: |-
                   Only update the function if the revision ID matches the ID that's specified.
@@ -185,24 +182,6 @@ spec:
                 items:
                   type: string
                 type: array
-              capacityProviderConfig:
-                description: |-
-                  Configuration for the capacity provider that manages compute resources for
-                  Lambda functions.
-                properties:
-                  lambdaManagedInstancesCapacityProviderConfig:
-                    description: Configuration for Lambda-managed instances used by
-                      the capacity provider.
-                    properties:
-                      capacityProviderARN:
-                        type: string
-                      executionEnvironmentMemoryGiBPerVCPU:
-                        type: number
-                      perExecutionEnvironmentMaxConcurrency:
-                        format: int64
-                        type: integer
-                    type: object
-                type: object
               codeSize:
                 description: The size of the function's deployment package, in bytes.
                 format: int64
@@ -247,18 +226,6 @@ spec:
                 properties:
                   targetARN:
                     type: string
-                type: object
-              durableConfig:
-                description: |-
-                  The function's durable execution configuration settings, if the function
-                  is configured for durability.
-                properties:
-                  executionTimeout:
-                    format: int64
-                    type: integer
-                  retentionPeriodInDays:
-                    format: int64
-                    type: integer
                 type: object
               environment:
                 description: |-

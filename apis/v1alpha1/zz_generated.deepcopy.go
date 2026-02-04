@@ -102,11 +102,6 @@ func (in *AddPermissionInput) DeepCopyInto(out *AddPermissionInput) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.InvokedViaFunctionURL != nil {
-		in, out := &in.InvokedViaFunctionURL, &out.InvokedViaFunctionURL
-		*out = new(bool)
-		**out = **in
-	}
 	if in.Principal != nil {
 		in, out := &in.Principal, &out.Principal
 		*out = new(string)
@@ -2110,11 +2105,6 @@ func (in *FunctionSpec) DeepCopyInto(out *FunctionSpec) {
 			}
 		}
 	}
-	if in.CapacityProviderConfig != nil {
-		in, out := &in.CapacityProviderConfig, &out.CapacityProviderConfig
-		*out = new(CapacityProviderConfig)
-		(*in).DeepCopyInto(*out)
-	}
 	if in.Code != nil {
 		in, out := &in.Code, &out.Code
 		*out = new(FunctionCode)
@@ -2318,11 +2308,6 @@ func (in *FunctionStatus) DeepCopyInto(out *FunctionStatus) {
 		in, out := &in.CodeSize, &out.CodeSize
 		*out = new(int64)
 		**out = **in
-	}
-	if in.DurableConfig != nil {
-		in, out := &in.DurableConfig, &out.DurableConfig
-		*out = new(DurableConfig)
-		(*in).DeepCopyInto(*out)
 	}
 	if in.ImageConfigResponse != nil {
 		in, out := &in.ImageConfigResponse, &out.ImageConfigResponse
@@ -4026,11 +4011,6 @@ func (in *VersionSpec) DeepCopyInto(out *VersionSpec) {
 		*out = new(PutProvisionedConcurrencyConfigInput)
 		(*in).DeepCopyInto(*out)
 	}
-	if in.PublishTo != nil {
-		in, out := &in.PublishTo, &out.PublishTo
-		*out = new(string)
-		**out = **in
-	}
 	if in.RevisionID != nil {
 		in, out := &in.RevisionID, &out.RevisionID
 		*out = new(string)
@@ -4078,11 +4058,6 @@ func (in *VersionStatus) DeepCopyInto(out *VersionStatus) {
 			}
 		}
 	}
-	if in.CapacityProviderConfig != nil {
-		in, out := &in.CapacityProviderConfig, &out.CapacityProviderConfig
-		*out = new(CapacityProviderConfig)
-		(*in).DeepCopyInto(*out)
-	}
 	if in.CodeSize != nil {
 		in, out := &in.CodeSize, &out.CodeSize
 		*out = new(int64)
@@ -4091,11 +4066,6 @@ func (in *VersionStatus) DeepCopyInto(out *VersionStatus) {
 	if in.DeadLetterConfig != nil {
 		in, out := &in.DeadLetterConfig, &out.DeadLetterConfig
 		*out = new(DeadLetterConfig)
-		(*in).DeepCopyInto(*out)
-	}
-	if in.DurableConfig != nil {
-		in, out := &in.DurableConfig, &out.DurableConfig
-		*out = new(DurableConfig)
 		(*in).DeepCopyInto(*out)
 	}
 	if in.Environment != nil {

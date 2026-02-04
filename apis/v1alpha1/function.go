@@ -27,9 +27,6 @@ type FunctionSpec struct {
 	// array with one of the valid values (arm64 or x86_64). The default value is
 	// x86_64.
 	Architectures []*string `json:"architectures,omitempty"`
-	// Configuration for the capacity provider that manages compute resources for
-	// Lambda functions.
-	CapacityProviderConfig *CapacityProviderConfig `json:"capacityProviderConfig,omitempty"`
 	// The code for the function.
 	// +kubebuilder:validation:Required
 	Code *FunctionCode `json:"code"`
@@ -199,10 +196,6 @@ type FunctionStatus struct {
 	// The size of the function's deployment package, in bytes.
 	// +kubebuilder:validation:Optional
 	CodeSize *int64 `json:"codeSize,omitempty"`
-	// The function's durable execution configuration settings, if the function
-	// is configured for durability.
-	// +kubebuilder:validation:Optional
-	DurableConfig *DurableConfig `json:"durableConfig,omitempty"`
 	// The function's image configuration values.
 	// +kubebuilder:validation:Optional
 	ImageConfigResponse *ImageConfigResponse `json:"imageConfigResponse,omitempty"`

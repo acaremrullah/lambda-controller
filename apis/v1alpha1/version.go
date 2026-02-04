@@ -51,8 +51,6 @@ type VersionSpec struct {
 	FunctionName                 *string                                  `json:"functionName,omitempty"`
 	FunctionRef                  *ackv1alpha1.AWSResourceReferenceWrapper `json:"functionRef,omitempty"`
 	ProvisionedConcurrencyConfig *PutProvisionedConcurrencyConfigInput    `json:"provisionedConcurrencyConfig,omitempty"`
-	// Specifies where to publish the function version or configuration.
-	PublishTo *string `json:"publishTo,omitempty"`
 	// Only update the function if the revision ID matches the ID that's specified.
 	// Use this option to avoid publishing a version if the function configuration
 	// has changed since you last updated it.
@@ -77,20 +75,12 @@ type VersionStatus struct {
 	// value is x86_64.
 	// +kubebuilder:validation:Optional
 	Architectures []*string `json:"architectures,omitempty"`
-	// Configuration for the capacity provider that manages compute resources for
-	// Lambda functions.
-	// +kubebuilder:validation:Optional
-	CapacityProviderConfig *CapacityProviderConfig `json:"capacityProviderConfig,omitempty"`
 	// The size of the function's deployment package, in bytes.
 	// +kubebuilder:validation:Optional
 	CodeSize *int64 `json:"codeSize,omitempty"`
 	// The function's dead letter queue.
 	// +kubebuilder:validation:Optional
 	DeadLetterConfig *DeadLetterConfig `json:"deadLetterConfig,omitempty"`
-	// The function's durable execution configuration settings, if the function
-	// is configured for durability.
-	// +kubebuilder:validation:Optional
-	DurableConfig *DurableConfig `json:"durableConfig,omitempty"`
 	// The function's environment variables (https://docs.aws.amazon.com/lambda/latest/dg/configuration-envvars.html).
 	// Omitted from CloudTrail logs.
 	// +kubebuilder:validation:Optional

@@ -104,26 +104,6 @@ func (rm *resourceManager) sdkFind(
 	} else {
 		ko.Status.Architectures = nil
 	}
-	if resp.CapacityProviderConfig != nil {
-		f1 := &svcapitypes.CapacityProviderConfig{}
-		if resp.CapacityProviderConfig.LambdaManagedInstancesCapacityProviderConfig != nil {
-			f1f0 := &svcapitypes.LambdaManagedInstancesCapacityProviderConfig{}
-			if resp.CapacityProviderConfig.LambdaManagedInstancesCapacityProviderConfig.CapacityProviderArn != nil {
-				f1f0.CapacityProviderARN = resp.CapacityProviderConfig.LambdaManagedInstancesCapacityProviderConfig.CapacityProviderArn
-			}
-			if resp.CapacityProviderConfig.LambdaManagedInstancesCapacityProviderConfig.ExecutionEnvironmentMemoryGiBPerVCpu != nil {
-				f1f0.ExecutionEnvironmentMemoryGiBPerVCPU = resp.CapacityProviderConfig.LambdaManagedInstancesCapacityProviderConfig.ExecutionEnvironmentMemoryGiBPerVCpu
-			}
-			if resp.CapacityProviderConfig.LambdaManagedInstancesCapacityProviderConfig.PerExecutionEnvironmentMaxConcurrency != nil {
-				perExecutionEnvironmentMaxConcurrencyCopy := int64(*resp.CapacityProviderConfig.LambdaManagedInstancesCapacityProviderConfig.PerExecutionEnvironmentMaxConcurrency)
-				f1f0.PerExecutionEnvironmentMaxConcurrency = &perExecutionEnvironmentMaxConcurrencyCopy
-			}
-			f1.LambdaManagedInstancesCapacityProviderConfig = f1f0
-		}
-		ko.Status.CapacityProviderConfig = f1
-	} else {
-		ko.Status.CapacityProviderConfig = nil
-	}
 	if resp.CodeSha256 != nil {
 		ko.Spec.CodeSHA256 = resp.CodeSha256
 	} else {
@@ -131,11 +111,11 @@ func (rm *resourceManager) sdkFind(
 	}
 	ko.Status.CodeSize = &resp.CodeSize
 	if resp.DeadLetterConfig != nil {
-		f4 := &svcapitypes.DeadLetterConfig{}
+		f5 := &svcapitypes.DeadLetterConfig{}
 		if resp.DeadLetterConfig.TargetArn != nil {
-			f4.TargetARN = resp.DeadLetterConfig.TargetArn
+			f5.TargetARN = resp.DeadLetterConfig.TargetArn
 		}
-		ko.Status.DeadLetterConfig = f4
+		ko.Status.DeadLetterConfig = f5
 	} else {
 		ko.Status.DeadLetterConfig = nil
 	}
@@ -144,62 +124,48 @@ func (rm *resourceManager) sdkFind(
 	} else {
 		ko.Spec.Description = nil
 	}
-	if resp.DurableConfig != nil {
-		f6 := &svcapitypes.DurableConfig{}
-		if resp.DurableConfig.ExecutionTimeout != nil {
-			executionTimeoutCopy := int64(*resp.DurableConfig.ExecutionTimeout)
-			f6.ExecutionTimeout = &executionTimeoutCopy
-		}
-		if resp.DurableConfig.RetentionPeriodInDays != nil {
-			retentionPeriodInDaysCopy := int64(*resp.DurableConfig.RetentionPeriodInDays)
-			f6.RetentionPeriodInDays = &retentionPeriodInDaysCopy
-		}
-		ko.Status.DurableConfig = f6
-	} else {
-		ko.Status.DurableConfig = nil
-	}
 	if resp.Environment != nil {
-		f7 := &svcapitypes.EnvironmentResponse{}
+		f8 := &svcapitypes.EnvironmentResponse{}
 		if resp.Environment.Error != nil {
-			f7f0 := &svcapitypes.EnvironmentError{}
+			f8f0 := &svcapitypes.EnvironmentError{}
 			if resp.Environment.Error.ErrorCode != nil {
-				f7f0.ErrorCode = resp.Environment.Error.ErrorCode
+				f8f0.ErrorCode = resp.Environment.Error.ErrorCode
 			}
 			if resp.Environment.Error.Message != nil {
-				f7f0.Message = resp.Environment.Error.Message
+				f8f0.Message = resp.Environment.Error.Message
 			}
-			f7.Error = f7f0
+			f8.Error = f8f0
 		}
 		if resp.Environment.Variables != nil {
-			f7.Variables = aws.StringMap(resp.Environment.Variables)
+			f8.Variables = aws.StringMap(resp.Environment.Variables)
 		}
-		ko.Status.Environment = f7
+		ko.Status.Environment = f8
 	} else {
 		ko.Status.Environment = nil
 	}
 	if resp.EphemeralStorage != nil {
-		f8 := &svcapitypes.EphemeralStorage{}
+		f9 := &svcapitypes.EphemeralStorage{}
 		if resp.EphemeralStorage.Size != nil {
 			sizeCopy := int64(*resp.EphemeralStorage.Size)
-			f8.Size = &sizeCopy
+			f9.Size = &sizeCopy
 		}
-		ko.Status.EphemeralStorage = f8
+		ko.Status.EphemeralStorage = f9
 	} else {
 		ko.Status.EphemeralStorage = nil
 	}
 	if resp.FileSystemConfigs != nil {
-		f9 := []*svcapitypes.FileSystemConfig{}
-		for _, f9iter := range resp.FileSystemConfigs {
-			f9elem := &svcapitypes.FileSystemConfig{}
-			if f9iter.Arn != nil {
-				f9elem.ARN = f9iter.Arn
+		f10 := []*svcapitypes.FileSystemConfig{}
+		for _, f10iter := range resp.FileSystemConfigs {
+			f10elem := &svcapitypes.FileSystemConfig{}
+			if f10iter.Arn != nil {
+				f10elem.ARN = f10iter.Arn
 			}
-			if f9iter.LocalMountPath != nil {
-				f9elem.LocalMountPath = f9iter.LocalMountPath
+			if f10iter.LocalMountPath != nil {
+				f10elem.LocalMountPath = f10iter.LocalMountPath
 			}
-			f9 = append(f9, f9elem)
+			f10 = append(f10, f10elem)
 		}
-		ko.Status.FileSystemConfigs = f9
+		ko.Status.FileSystemConfigs = f10
 	} else {
 		ko.Status.FileSystemConfigs = nil
 	}
@@ -219,31 +185,31 @@ func (rm *resourceManager) sdkFind(
 		ko.Status.Handler = nil
 	}
 	if resp.ImageConfigResponse != nil {
-		f13 := &svcapitypes.ImageConfigResponse{}
+		f14 := &svcapitypes.ImageConfigResponse{}
 		if resp.ImageConfigResponse.Error != nil {
-			f13f0 := &svcapitypes.ImageConfigError{}
+			f14f0 := &svcapitypes.ImageConfigError{}
 			if resp.ImageConfigResponse.Error.ErrorCode != nil {
-				f13f0.ErrorCode = resp.ImageConfigResponse.Error.ErrorCode
+				f14f0.ErrorCode = resp.ImageConfigResponse.Error.ErrorCode
 			}
 			if resp.ImageConfigResponse.Error.Message != nil {
-				f13f0.Message = resp.ImageConfigResponse.Error.Message
+				f14f0.Message = resp.ImageConfigResponse.Error.Message
 			}
-			f13.Error = f13f0
+			f14.Error = f14f0
 		}
 		if resp.ImageConfigResponse.ImageConfig != nil {
-			f13f1 := &svcapitypes.ImageConfig{}
+			f14f1 := &svcapitypes.ImageConfig{}
 			if resp.ImageConfigResponse.ImageConfig.Command != nil {
-				f13f1.Command = aws.StringSlice(resp.ImageConfigResponse.ImageConfig.Command)
+				f14f1.Command = aws.StringSlice(resp.ImageConfigResponse.ImageConfig.Command)
 			}
 			if resp.ImageConfigResponse.ImageConfig.EntryPoint != nil {
-				f13f1.EntryPoint = aws.StringSlice(resp.ImageConfigResponse.ImageConfig.EntryPoint)
+				f14f1.EntryPoint = aws.StringSlice(resp.ImageConfigResponse.ImageConfig.EntryPoint)
 			}
 			if resp.ImageConfigResponse.ImageConfig.WorkingDirectory != nil {
-				f13f1.WorkingDirectory = resp.ImageConfigResponse.ImageConfig.WorkingDirectory
+				f14f1.WorkingDirectory = resp.ImageConfigResponse.ImageConfig.WorkingDirectory
 			}
-			f13.ImageConfig = f13f1
+			f14.ImageConfig = f14f1
 		}
-		ko.Status.ImageConfigResponse = f13
+		ko.Status.ImageConfigResponse = f14
 	} else {
 		ko.Status.ImageConfigResponse = nil
 	}
@@ -273,22 +239,22 @@ func (rm *resourceManager) sdkFind(
 		ko.Status.LastUpdateStatusReasonCode = nil
 	}
 	if resp.Layers != nil {
-		f19 := []*svcapitypes.Layer{}
-		for _, f19iter := range resp.Layers {
-			f19elem := &svcapitypes.Layer{}
-			if f19iter.Arn != nil {
-				f19elem.ARN = f19iter.Arn
+		f20 := []*svcapitypes.Layer{}
+		for _, f20iter := range resp.Layers {
+			f20elem := &svcapitypes.Layer{}
+			if f20iter.Arn != nil {
+				f20elem.ARN = f20iter.Arn
 			}
-			f19elem.CodeSize = &f19iter.CodeSize
-			if f19iter.SigningJobArn != nil {
-				f19elem.SigningJobARN = f19iter.SigningJobArn
+			f20elem.CodeSize = &f20iter.CodeSize
+			if f20iter.SigningJobArn != nil {
+				f20elem.SigningJobARN = f20iter.SigningJobArn
 			}
-			if f19iter.SigningProfileVersionArn != nil {
-				f19elem.SigningProfileVersionARN = f19iter.SigningProfileVersionArn
+			if f20iter.SigningProfileVersionArn != nil {
+				f20elem.SigningProfileVersionARN = f20iter.SigningProfileVersionArn
 			}
-			f19 = append(f19, f19elem)
+			f20 = append(f20, f20elem)
 		}
-		ko.Status.Layers = f19
+		ko.Status.Layers = f20
 	} else {
 		ko.Status.Layers = nil
 	}
@@ -334,14 +300,14 @@ func (rm *resourceManager) sdkFind(
 		ko.Status.SigningProfileVersionARN = nil
 	}
 	if resp.SnapStart != nil {
-		f30 := &svcapitypes.SnapStartResponse{}
+		f31 := &svcapitypes.SnapStartResponse{}
 		if resp.SnapStart.ApplyOn != "" {
-			f30.ApplyOn = aws.String(string(resp.SnapStart.ApplyOn))
+			f31.ApplyOn = aws.String(string(resp.SnapStart.ApplyOn))
 		}
 		if resp.SnapStart.OptimizationStatus != "" {
-			f30.OptimizationStatus = aws.String(string(resp.SnapStart.OptimizationStatus))
+			f31.OptimizationStatus = aws.String(string(resp.SnapStart.OptimizationStatus))
 		}
-		ko.Status.SnapStart = f30
+		ko.Status.SnapStart = f31
 	} else {
 		ko.Status.SnapStart = nil
 	}
@@ -361,11 +327,11 @@ func (rm *resourceManager) sdkFind(
 		ko.Status.StateReasonCode = nil
 	}
 	if resp.TenancyConfig != nil {
-		f34 := &svcapitypes.TenancyConfig{}
+		f35 := &svcapitypes.TenancyConfig{}
 		if resp.TenancyConfig.TenantIsolationMode != "" {
-			f34.TenantIsolationMode = aws.String(string(resp.TenancyConfig.TenantIsolationMode))
+			f35.TenantIsolationMode = aws.String(string(resp.TenancyConfig.TenantIsolationMode))
 		}
-		ko.Status.TenancyConfig = f34
+		ko.Status.TenancyConfig = f35
 	} else {
 		ko.Status.TenancyConfig = nil
 	}
@@ -376,11 +342,11 @@ func (rm *resourceManager) sdkFind(
 		ko.Status.Timeout = nil
 	}
 	if resp.TracingConfig != nil {
-		f36 := &svcapitypes.TracingConfigResponse{}
+		f37 := &svcapitypes.TracingConfigResponse{}
 		if resp.TracingConfig.Mode != "" {
-			f36.Mode = aws.String(string(resp.TracingConfig.Mode))
+			f37.Mode = aws.String(string(resp.TracingConfig.Mode))
 		}
-		ko.Status.TracingConfig = f36
+		ko.Status.TracingConfig = f37
 	} else {
 		ko.Status.TracingConfig = nil
 	}
@@ -390,20 +356,20 @@ func (rm *resourceManager) sdkFind(
 		ko.Status.Version = nil
 	}
 	if resp.VpcConfig != nil {
-		f38 := &svcapitypes.VPCConfigResponse{}
+		f39 := &svcapitypes.VPCConfigResponse{}
 		if resp.VpcConfig.Ipv6AllowedForDualStack != nil {
-			f38.IPv6AllowedForDualStack = resp.VpcConfig.Ipv6AllowedForDualStack
+			f39.IPv6AllowedForDualStack = resp.VpcConfig.Ipv6AllowedForDualStack
 		}
 		if resp.VpcConfig.SecurityGroupIds != nil {
-			f38.SecurityGroupIDs = aws.StringSlice(resp.VpcConfig.SecurityGroupIds)
+			f39.SecurityGroupIDs = aws.StringSlice(resp.VpcConfig.SecurityGroupIds)
 		}
 		if resp.VpcConfig.SubnetIds != nil {
-			f38.SubnetIDs = aws.StringSlice(resp.VpcConfig.SubnetIds)
+			f39.SubnetIDs = aws.StringSlice(resp.VpcConfig.SubnetIds)
 		}
 		if resp.VpcConfig.VpcId != nil {
-			f38.VPCID = resp.VpcConfig.VpcId
+			f39.VPCID = resp.VpcConfig.VpcId
 		}
-		ko.Status.VPCConfig = f38
+		ko.Status.VPCConfig = f39
 	} else {
 		ko.Status.VPCConfig = nil
 	}
@@ -505,26 +471,6 @@ func (rm *resourceManager) sdkCreate(
 	} else {
 		ko.Status.Architectures = nil
 	}
-	if resp.CapacityProviderConfig != nil {
-		f1 := &svcapitypes.CapacityProviderConfig{}
-		if resp.CapacityProviderConfig.LambdaManagedInstancesCapacityProviderConfig != nil {
-			f1f0 := &svcapitypes.LambdaManagedInstancesCapacityProviderConfig{}
-			if resp.CapacityProviderConfig.LambdaManagedInstancesCapacityProviderConfig.CapacityProviderArn != nil {
-				f1f0.CapacityProviderARN = resp.CapacityProviderConfig.LambdaManagedInstancesCapacityProviderConfig.CapacityProviderArn
-			}
-			if resp.CapacityProviderConfig.LambdaManagedInstancesCapacityProviderConfig.ExecutionEnvironmentMemoryGiBPerVCpu != nil {
-				f1f0.ExecutionEnvironmentMemoryGiBPerVCPU = resp.CapacityProviderConfig.LambdaManagedInstancesCapacityProviderConfig.ExecutionEnvironmentMemoryGiBPerVCpu
-			}
-			if resp.CapacityProviderConfig.LambdaManagedInstancesCapacityProviderConfig.PerExecutionEnvironmentMaxConcurrency != nil {
-				perExecutionEnvironmentMaxConcurrencyCopy := int64(*resp.CapacityProviderConfig.LambdaManagedInstancesCapacityProviderConfig.PerExecutionEnvironmentMaxConcurrency)
-				f1f0.PerExecutionEnvironmentMaxConcurrency = &perExecutionEnvironmentMaxConcurrencyCopy
-			}
-			f1.LambdaManagedInstancesCapacityProviderConfig = f1f0
-		}
-		ko.Status.CapacityProviderConfig = f1
-	} else {
-		ko.Status.CapacityProviderConfig = nil
-	}
 	if resp.CodeSha256 != nil {
 		ko.Spec.CodeSHA256 = resp.CodeSha256
 	} else {
@@ -532,11 +478,11 @@ func (rm *resourceManager) sdkCreate(
 	}
 	ko.Status.CodeSize = &resp.CodeSize
 	if resp.DeadLetterConfig != nil {
-		f4 := &svcapitypes.DeadLetterConfig{}
+		f3 := &svcapitypes.DeadLetterConfig{}
 		if resp.DeadLetterConfig.TargetArn != nil {
-			f4.TargetARN = resp.DeadLetterConfig.TargetArn
+			f3.TargetARN = resp.DeadLetterConfig.TargetArn
 		}
-		ko.Status.DeadLetterConfig = f4
+		ko.Status.DeadLetterConfig = f3
 	} else {
 		ko.Status.DeadLetterConfig = nil
 	}
@@ -545,62 +491,48 @@ func (rm *resourceManager) sdkCreate(
 	} else {
 		ko.Spec.Description = nil
 	}
-	if resp.DurableConfig != nil {
-		f6 := &svcapitypes.DurableConfig{}
-		if resp.DurableConfig.ExecutionTimeout != nil {
-			executionTimeoutCopy := int64(*resp.DurableConfig.ExecutionTimeout)
-			f6.ExecutionTimeout = &executionTimeoutCopy
-		}
-		if resp.DurableConfig.RetentionPeriodInDays != nil {
-			retentionPeriodInDaysCopy := int64(*resp.DurableConfig.RetentionPeriodInDays)
-			f6.RetentionPeriodInDays = &retentionPeriodInDaysCopy
-		}
-		ko.Status.DurableConfig = f6
-	} else {
-		ko.Status.DurableConfig = nil
-	}
 	if resp.Environment != nil {
-		f7 := &svcapitypes.EnvironmentResponse{}
+		f5 := &svcapitypes.EnvironmentResponse{}
 		if resp.Environment.Error != nil {
-			f7f0 := &svcapitypes.EnvironmentError{}
+			f5f0 := &svcapitypes.EnvironmentError{}
 			if resp.Environment.Error.ErrorCode != nil {
-				f7f0.ErrorCode = resp.Environment.Error.ErrorCode
+				f5f0.ErrorCode = resp.Environment.Error.ErrorCode
 			}
 			if resp.Environment.Error.Message != nil {
-				f7f0.Message = resp.Environment.Error.Message
+				f5f0.Message = resp.Environment.Error.Message
 			}
-			f7.Error = f7f0
+			f5.Error = f5f0
 		}
 		if resp.Environment.Variables != nil {
-			f7.Variables = aws.StringMap(resp.Environment.Variables)
+			f5.Variables = aws.StringMap(resp.Environment.Variables)
 		}
-		ko.Status.Environment = f7
+		ko.Status.Environment = f5
 	} else {
 		ko.Status.Environment = nil
 	}
 	if resp.EphemeralStorage != nil {
-		f8 := &svcapitypes.EphemeralStorage{}
+		f6 := &svcapitypes.EphemeralStorage{}
 		if resp.EphemeralStorage.Size != nil {
 			sizeCopy := int64(*resp.EphemeralStorage.Size)
-			f8.Size = &sizeCopy
+			f6.Size = &sizeCopy
 		}
-		ko.Status.EphemeralStorage = f8
+		ko.Status.EphemeralStorage = f6
 	} else {
 		ko.Status.EphemeralStorage = nil
 	}
 	if resp.FileSystemConfigs != nil {
-		f9 := []*svcapitypes.FileSystemConfig{}
-		for _, f9iter := range resp.FileSystemConfigs {
-			f9elem := &svcapitypes.FileSystemConfig{}
-			if f9iter.Arn != nil {
-				f9elem.ARN = f9iter.Arn
+		f7 := []*svcapitypes.FileSystemConfig{}
+		for _, f7iter := range resp.FileSystemConfigs {
+			f7elem := &svcapitypes.FileSystemConfig{}
+			if f7iter.Arn != nil {
+				f7elem.ARN = f7iter.Arn
 			}
-			if f9iter.LocalMountPath != nil {
-				f9elem.LocalMountPath = f9iter.LocalMountPath
+			if f7iter.LocalMountPath != nil {
+				f7elem.LocalMountPath = f7iter.LocalMountPath
 			}
-			f9 = append(f9, f9elem)
+			f7 = append(f7, f7elem)
 		}
-		ko.Status.FileSystemConfigs = f9
+		ko.Status.FileSystemConfigs = f7
 	} else {
 		ko.Status.FileSystemConfigs = nil
 	}
@@ -620,31 +552,31 @@ func (rm *resourceManager) sdkCreate(
 		ko.Status.Handler = nil
 	}
 	if resp.ImageConfigResponse != nil {
-		f13 := &svcapitypes.ImageConfigResponse{}
+		f11 := &svcapitypes.ImageConfigResponse{}
 		if resp.ImageConfigResponse.Error != nil {
-			f13f0 := &svcapitypes.ImageConfigError{}
+			f11f0 := &svcapitypes.ImageConfigError{}
 			if resp.ImageConfigResponse.Error.ErrorCode != nil {
-				f13f0.ErrorCode = resp.ImageConfigResponse.Error.ErrorCode
+				f11f0.ErrorCode = resp.ImageConfigResponse.Error.ErrorCode
 			}
 			if resp.ImageConfigResponse.Error.Message != nil {
-				f13f0.Message = resp.ImageConfigResponse.Error.Message
+				f11f0.Message = resp.ImageConfigResponse.Error.Message
 			}
-			f13.Error = f13f0
+			f11.Error = f11f0
 		}
 		if resp.ImageConfigResponse.ImageConfig != nil {
-			f13f1 := &svcapitypes.ImageConfig{}
+			f11f1 := &svcapitypes.ImageConfig{}
 			if resp.ImageConfigResponse.ImageConfig.Command != nil {
-				f13f1.Command = aws.StringSlice(resp.ImageConfigResponse.ImageConfig.Command)
+				f11f1.Command = aws.StringSlice(resp.ImageConfigResponse.ImageConfig.Command)
 			}
 			if resp.ImageConfigResponse.ImageConfig.EntryPoint != nil {
-				f13f1.EntryPoint = aws.StringSlice(resp.ImageConfigResponse.ImageConfig.EntryPoint)
+				f11f1.EntryPoint = aws.StringSlice(resp.ImageConfigResponse.ImageConfig.EntryPoint)
 			}
 			if resp.ImageConfigResponse.ImageConfig.WorkingDirectory != nil {
-				f13f1.WorkingDirectory = resp.ImageConfigResponse.ImageConfig.WorkingDirectory
+				f11f1.WorkingDirectory = resp.ImageConfigResponse.ImageConfig.WorkingDirectory
 			}
-			f13.ImageConfig = f13f1
+			f11.ImageConfig = f11f1
 		}
-		ko.Status.ImageConfigResponse = f13
+		ko.Status.ImageConfigResponse = f11
 	} else {
 		ko.Status.ImageConfigResponse = nil
 	}
@@ -674,22 +606,22 @@ func (rm *resourceManager) sdkCreate(
 		ko.Status.LastUpdateStatusReasonCode = nil
 	}
 	if resp.Layers != nil {
-		f19 := []*svcapitypes.Layer{}
-		for _, f19iter := range resp.Layers {
-			f19elem := &svcapitypes.Layer{}
-			if f19iter.Arn != nil {
-				f19elem.ARN = f19iter.Arn
+		f17 := []*svcapitypes.Layer{}
+		for _, f17iter := range resp.Layers {
+			f17elem := &svcapitypes.Layer{}
+			if f17iter.Arn != nil {
+				f17elem.ARN = f17iter.Arn
 			}
-			f19elem.CodeSize = &f19iter.CodeSize
-			if f19iter.SigningJobArn != nil {
-				f19elem.SigningJobARN = f19iter.SigningJobArn
+			f17elem.CodeSize = &f17iter.CodeSize
+			if f17iter.SigningJobArn != nil {
+				f17elem.SigningJobARN = f17iter.SigningJobArn
 			}
-			if f19iter.SigningProfileVersionArn != nil {
-				f19elem.SigningProfileVersionARN = f19iter.SigningProfileVersionArn
+			if f17iter.SigningProfileVersionArn != nil {
+				f17elem.SigningProfileVersionARN = f17iter.SigningProfileVersionArn
 			}
-			f19 = append(f19, f19elem)
+			f17 = append(f17, f17elem)
 		}
-		ko.Status.Layers = f19
+		ko.Status.Layers = f17
 	} else {
 		ko.Status.Layers = nil
 	}
@@ -735,14 +667,14 @@ func (rm *resourceManager) sdkCreate(
 		ko.Status.SigningProfileVersionARN = nil
 	}
 	if resp.SnapStart != nil {
-		f28 := &svcapitypes.SnapStartResponse{}
+		f26 := &svcapitypes.SnapStartResponse{}
 		if resp.SnapStart.ApplyOn != "" {
-			f28.ApplyOn = aws.String(string(resp.SnapStart.ApplyOn))
+			f26.ApplyOn = aws.String(string(resp.SnapStart.ApplyOn))
 		}
 		if resp.SnapStart.OptimizationStatus != "" {
-			f28.OptimizationStatus = aws.String(string(resp.SnapStart.OptimizationStatus))
+			f26.OptimizationStatus = aws.String(string(resp.SnapStart.OptimizationStatus))
 		}
-		ko.Status.SnapStart = f28
+		ko.Status.SnapStart = f26
 	} else {
 		ko.Status.SnapStart = nil
 	}
@@ -762,11 +694,11 @@ func (rm *resourceManager) sdkCreate(
 		ko.Status.StateReasonCode = nil
 	}
 	if resp.TenancyConfig != nil {
-		f32 := &svcapitypes.TenancyConfig{}
+		f30 := &svcapitypes.TenancyConfig{}
 		if resp.TenancyConfig.TenantIsolationMode != "" {
-			f32.TenantIsolationMode = aws.String(string(resp.TenancyConfig.TenantIsolationMode))
+			f30.TenantIsolationMode = aws.String(string(resp.TenancyConfig.TenantIsolationMode))
 		}
-		ko.Status.TenancyConfig = f32
+		ko.Status.TenancyConfig = f30
 	} else {
 		ko.Status.TenancyConfig = nil
 	}
@@ -777,11 +709,11 @@ func (rm *resourceManager) sdkCreate(
 		ko.Status.Timeout = nil
 	}
 	if resp.TracingConfig != nil {
-		f34 := &svcapitypes.TracingConfigResponse{}
+		f32 := &svcapitypes.TracingConfigResponse{}
 		if resp.TracingConfig.Mode != "" {
-			f34.Mode = aws.String(string(resp.TracingConfig.Mode))
+			f32.Mode = aws.String(string(resp.TracingConfig.Mode))
 		}
-		ko.Status.TracingConfig = f34
+		ko.Status.TracingConfig = f32
 	} else {
 		ko.Status.TracingConfig = nil
 	}
@@ -791,20 +723,20 @@ func (rm *resourceManager) sdkCreate(
 		ko.Status.Version = nil
 	}
 	if resp.VpcConfig != nil {
-		f36 := &svcapitypes.VPCConfigResponse{}
+		f34 := &svcapitypes.VPCConfigResponse{}
 		if resp.VpcConfig.Ipv6AllowedForDualStack != nil {
-			f36.IPv6AllowedForDualStack = resp.VpcConfig.Ipv6AllowedForDualStack
+			f34.IPv6AllowedForDualStack = resp.VpcConfig.Ipv6AllowedForDualStack
 		}
 		if resp.VpcConfig.SecurityGroupIds != nil {
-			f36.SecurityGroupIDs = aws.StringSlice(resp.VpcConfig.SecurityGroupIds)
+			f34.SecurityGroupIDs = aws.StringSlice(resp.VpcConfig.SecurityGroupIds)
 		}
 		if resp.VpcConfig.SubnetIds != nil {
-			f36.SubnetIDs = aws.StringSlice(resp.VpcConfig.SubnetIds)
+			f34.SubnetIDs = aws.StringSlice(resp.VpcConfig.SubnetIds)
 		}
 		if resp.VpcConfig.VpcId != nil {
-			f36.VPCID = resp.VpcConfig.VpcId
+			f34.VPCID = resp.VpcConfig.VpcId
 		}
-		ko.Status.VPCConfig = f36
+		ko.Status.VPCConfig = f34
 	} else {
 		ko.Status.VPCConfig = nil
 	}
@@ -841,9 +773,6 @@ func (rm *resourceManager) newCreateRequestPayload(
 	}
 	if r.ko.Spec.FunctionName != nil {
 		res.FunctionName = r.ko.Spec.FunctionName
-	}
-	if r.ko.Spec.PublishTo != nil {
-		res.PublishTo = svcsdktypes.FunctionVersionLatestPublished(*r.ko.Spec.PublishTo)
 	}
 	if r.ko.Spec.RevisionID != nil {
 		res.RevisionId = r.ko.Spec.RevisionID
