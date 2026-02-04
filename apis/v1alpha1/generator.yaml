@@ -1,17 +1,6 @@
 ignore:
   resource_names:
-  - CreateCapacityProvider
   - CapacityProvider
-  - CapacityProviderScalingMode
-  - CapacityProviderState
-  - CapacityProviderPredefinedMetricType
-  - CapacityProviderScalingMode
-  - CapacityProviderConfig
-  - CapacityProviderPermissionsConfig
-  - ChainedInvokeOptions
-  - ChainedInvokeStartedDetails
-  - CheckpointUpdatedExecutionState
-  - DurableConfig
     # Function
     # Alias
     # CodeSigningConfig
