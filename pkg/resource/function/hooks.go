@@ -334,6 +334,9 @@ func (rm *resourceManager) updateFunctionConfiguration(
 			for i, elem := range vpcConfigCopy.SecurityGroupIDs {
 				VPCConfig.SecurityGroupIds[i] = *elem
 			}
+			if vpcConfigCopy.Tenancy != nil {
+				VPCConfig.Tenancy = svcsdktypes.Tenancy(*vpcConfigCopy.Tenancy)
+			}
 		}
 		input.VpcConfig = VPCConfig
 	}
