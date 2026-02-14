@@ -37,7 +37,7 @@ DELETE_WAIT_AFTER_SECONDS = 30
 @pytest.mark.canary
 class TestFunction:
     def test_function_tenancy(self, lambda_client):
-        resource_name = random_suffix_name("lambda-function-tenancy", 24)
+        resource_name = random_suffix_name("lambda-function", 24)
 
         resources = get_bootstrap_resources()
         logging.debug(resources)
@@ -51,7 +51,7 @@ class TestFunction:
 
         # Load Lambda CR
         resource_data = load_lambda_resource(
-            "function_tenancy",
+            "function",
             additional_replacements=replacements,
         )
         logging.debug(resource_data)
