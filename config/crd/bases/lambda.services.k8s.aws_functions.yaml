@@ -623,6 +623,15 @@ spec:
                   The reason code for the function's current state. When the code is Creating,
                   you can't invoke or modify the function.
                 type: string
+              tenancyConfig:
+                description: |-
+                  The function's tenant isolation configuration settings. Determines whether
+                  the Lambda function runs on a shared or dedicated infrastructure per unique
+                  tenant.
+                properties:
+                  tenantIsolationMode:
+                    type: string
+                type: object
               version:
                 description: |-
                   The version of the Lambda function.

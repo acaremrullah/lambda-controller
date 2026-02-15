@@ -1092,6 +1092,11 @@ class TestFunction:
         function = lambda_validator.get_function(resource_name)
         assert function is not None
 
+        # Verify tenancyConfig was applied to the Lambda function
+        assert "Configuration" in function
+        assert "TenancyConfig" in function["Configuration"]
+        assert function["Configuration"]["TenancyConfig"]["TenantIsolationMode"] == "PER_TENANT"
+
         # Delete k8s resource
         _, deleted = k8s.delete_custom_resource(ref)
         assert deleted is True

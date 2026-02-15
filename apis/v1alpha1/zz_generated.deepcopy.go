@@ -2380,6 +2380,11 @@ func (in *FunctionStatus) DeepCopyInto(out *FunctionStatus) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.TenancyConfig != nil {
+		in, out := &in.TenancyConfig, &out.TenancyConfig
+		*out = new(TenancyConfig)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Version != nil {
 		in, out := &in.Version, &out.Version
 		*out = new(string)
