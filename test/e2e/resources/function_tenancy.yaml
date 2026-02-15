@@ -15,3 +15,4 @@ spec:
   description: function with tenant isolation enabled
   tenancyConfig:
     tenantIsolationMode: "PER_TENANT"
+  reservedConcurrentExecutions: $RESERVED_CONCURRENT_EXECUTIONS

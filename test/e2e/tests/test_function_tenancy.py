@@ -47,6 +47,7 @@ class TestFunction:
         replacements["BUCKET_NAME"] = resources.FunctionsBucket.name
         replacements["LAMBDA_ROLE"] = resources.BasicRole.arn
         replacements["LAMBDA_FILE_NAME"] = LAMBDA_FUNCTION_FILE_ZIP
+        replacements["RESERVED_CONCURRENT_EXECUTIONS"] = "0"
         replacements["AWS_REGION"] = get_region()
 
         # Load Lambda CR
