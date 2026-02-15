@@ -1080,9 +1080,12 @@ class TestFunction:
         # Check Lambda function exists
         assert lambda_validator.function_exists(resource_name)
 
-        # Check tenancy config
-        function = lambda_validator.get_function(resource_name)
+        # Verify tenancyConfig was set in the CR spec
+        assert "tenancyConfig" in cr["spec"]
+        assert cr["spec"]["tenancyConfig"]["tenantIsolationMode"] == "PER_TENANT"
 
+        # Check tenancy config in AWS function
+        function = lambda_validator.get_function(resource_name)
         assert function is not None
         assert "TenancyConfig" in function["Configuration"]
         assert function["Configuration"]["TenancyConfig"]["TenantIsolationMode"] == "PER_TENANT"
