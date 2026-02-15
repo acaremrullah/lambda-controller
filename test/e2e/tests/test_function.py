@@ -1081,7 +1081,6 @@ class TestFunction:
         assert lambda_validator.function_exists(resource_name)
 
         # Verify tenancyConfig was set in the CR spec
-        assert "tenancyConfig" in cr["spec"]
         assert cr["spec"]["tenancyConfig"]["tenantIsolationMode"] == "PER_TENANT"
 
         # Check Lambda function exists and is properly configured
@@ -1089,8 +1088,6 @@ class TestFunction:
         assert function is not None
 
         # Verify tenancyConfig was applied to the Lambda function
-        assert "Configuration" in function
-        assert "TenancyConfig" in function["Configuration"]
         assert function["Configuration"]["TenancyConfig"]["TenantIsolationMode"] == "PER_TENANT"
 
         # Delete k8s resource
