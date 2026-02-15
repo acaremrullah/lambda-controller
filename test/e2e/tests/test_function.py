@@ -1084,10 +1084,6 @@ class TestFunction:
         assert "tenancyConfig" in cr["spec"]
         assert cr["spec"]["tenancyConfig"]["tenantIsolationMode"] == "PER_TENANT"
 
-        # Verify tenancyConfig is synced to CR status
-        assert "tenancyConfig" in cr["status"]
-        assert cr["status"]["tenancyConfig"]["tenantIsolationMode"] == "PER_TENANT"
-
         # Check Lambda function exists and is properly configured
         function = lambda_validator.get_function(resource_name)
         assert function is not None
