@@ -245,11 +245,6 @@ type FunctionStatus struct {
 	// you can't invoke or modify the function.
 	// +kubebuilder:validation:Optional
 	StateReasonCode *string `json:"stateReasonCode,omitempty"`
-	// The function's tenant isolation configuration settings. Determines whether
-	// the Lambda function runs on a shared or dedicated infrastructure per unique
-	// tenant.
-	// +kubebuilder:validation:Optional
-	TenancyConfig *TenancyConfig `json:"tenancyConfig,omitempty"`
 	// The version of the Lambda function.
 	//
 	// Regex Pattern: `^(\$LATEST|[0-9]+)$`

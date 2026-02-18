@@ -115,10 +115,6 @@ resources:
           path: ReservedConcurrentExecutions
       TenancyConfig:
         is_immutable: true
-        is_read_only: true
-        from:
-          operation: GetFunction
-          path: Configuration.TenancyConfig
       Code:
         compare:
           is_ignored: false
