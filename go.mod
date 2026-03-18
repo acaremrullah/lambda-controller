@@ -15,13 +15,13 @@ require (
 	github.com/aws/aws-sdk-go-v2 v1.41.1
 	github.com/aws/aws-sdk-go-v2/service/lambda v1.87.1
 	github.com/aws/smithy-go v1.24.0
-	github.com/go-logr/logr v1.4.2
-	github.com/micahhausler/aws-iam-policy v0.4.2
-	github.com/spf13/pflag v1.0.5
-	k8s.io/api v0.32.1
-	k8s.io/apimachinery v0.32.1
-	k8s.io/client-go v0.32.1
-	sigs.k8s.io/controller-runtime v0.20.4
+	github.com/go-logr/logr v1.4.3
+	github.com/micahhausler/aws-iam-policy v0.4.4
+	github.com/spf13/pflag v1.0.9
+	k8s.io/api v0.35.0
+	k8s.io/apimachinery v0.35.0
+	k8s.io/client-go v0.35.0
+	sigs.k8s.io/controller-runtime v0.23.0
 )
 
 require (
